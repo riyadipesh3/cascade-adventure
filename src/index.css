@@ -1,0 +1,270 @@
+/* ============================================================================
+   TEMPLATE 15 - CASCADE
+   Whitewater rafting operator. Full-bleed river photograph hero with oversized
+   condensed display set over it, then an offset staggered trip grid, a dense
+   two-column river data section, plain safety rows, a guide row, and a booking
+   band. VARIANCE 9 / MOTION 6 / DENSITY 4
+
+   Theme lock: dark only. One accent (lime, used sparingly on key actions and a
+   few small data highlights). One radius (6px) applied to every element.
+   ========================================================================= */
+
+@import 'tailwindcss';
+
+@import '@fontsource-variable/archivo-narrow';
+@import '@fontsource-variable/manrope';
+
+/* --------------------------------------------------------------------------
+   TOKENS
+   -------------------------------------------------------------------------- */
+@theme {
+  --font-display: 'Archivo Narrow Variable', 'Archivo Narrow', system-ui, sans-serif;
+  --font-body: 'Manrope Variable', 'Manrope', system-ui, sans-serif;
+
+  /* Deep forest-ink canvas. No pure black anywhere. */
+  --color-canvas: #0e1614;
+  --color-surface: #141d1a;
+  --color-raise: #1a2522;
+
+  --color-ink: #eef2ee;
+  --color-body: #b4c2ba;
+  --color-mute: #82948b;
+  --color-hairline: #24312c;
+
+  --color-accent: #a3e635;
+  --color-accent-ink: #101a06;
+  --color-accent-soft: #2b3a15;
+}
+
+:root {
+  --radius: 6px;
+  color-scheme: dark;
+}
+
+* {
+  border-radius: var(--radius);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-body);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   COMPONENTS
+   -------------------------------------------------------------------------- */
+@layer components {
+  .shell {
+    width: 100%;
+    max-width: 1400px;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .shell {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  .display {
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.035em;
+    line-height: 0.94;
+    color: var(--color-ink);
+    text-wrap: balance;
+  }
+
+  .display-lg {
+    font-size: clamp(2.1rem, 4.6vw, 3.4rem);
+  }
+
+  .display-md {
+    font-size: clamp(1.55rem, 2.6vw, 2.1rem);
+    line-height: 1;
+  }
+
+  /* Hero headline. Condensed caps over the river photo. Sized so the longest
+     line stays inside the shell at 390px with no horizontal overflow. */
+  .display-hero {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2.25rem, 9vw, 8.5rem);
+    line-height: 0.88;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  .lede {
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    max-width: 62ch;
+    color: var(--color-body);
+  }
+
+  /* Small uppercase label. Used once on the page (hero). */
+  .micro {
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-mute);
+  }
+
+  /* Data key inside the river table. Sentence case so it never reads as a
+     section eyebrow. */
+  .datakey {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-mute);
+  }
+
+  .dataval {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    padding: 0.8125rem 1.5rem;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 160ms ease, color 160ms ease,
+      transform 120ms ease, border-color 160ms ease;
+  }
+
+  .btn:active {
+    transform: translateY(1px);
+  }
+
+  .btn-primary {
+    background: var(--color-accent);
+    color: var(--color-accent-ink);
+  }
+
+  .btn-primary:hover {
+    background: #b8ef53;
+  }
+
+  .btn-secondary {
+    background: var(--color-raise);
+    color: var(--color-ink);
+    border-color: var(--color-hairline);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--color-mute);
+  }
+
+  /* Sits directly on the hero photograph, so the border carries the edge. */
+  .btn-ghost {
+    background: rgba(14, 22, 20, 0.55);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.38);
+  }
+
+  .btn-ghost:hover {
+    border-color: rgba(255, 255, 255, 0.85);
+  }
+
+  .frame {
+    position: relative;
+    overflow: hidden;
+    background: var(--color-surface);
+  }
+
+  .frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Readability scrim under hero type. Tinted to the canvas, not pure black. */
+  .scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(9, 14, 12, 0.72) 0%,
+        rgba(9, 14, 12, 0.34) 34%,
+        rgba(9, 14, 12, 0.52) 62%,
+        rgba(9, 14, 12, 0.9) 100%
+      ),
+      linear-gradient(90deg, rgba(9, 14, 12, 0.72) 0%, rgba(9, 14, 12, 0.05) 62%);
+  }
+
+  /* Slow settle on the hero photograph. Load-time only, never scroll driven. */
+  .hero-plate {
+    animation: plate-settle 1500ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes plate-settle {
+    from {
+      transform: scale(1.07);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 620ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 620ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .hero-plate {
+    animation: none;
+  }
+}
+
+@source "./**/*.{tsx,ts}";
